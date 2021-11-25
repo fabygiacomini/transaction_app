@@ -3,10 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Modules\Transaction\Service\TransactionServiceInterface;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+
+    /**
+     * @var TransactionServiceInterface
+     */
+    private $transactionService;
+
+    public function __construct(TransactionServiceInterface $transactionService)
+    {
+        $this->transactionService = $transactionService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,6 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -24,7 +35,6 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -35,7 +45,12 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $this->transactionService->create(1, 2, 500.00);
+        } catch (\Exception $exception) {
+            // TODO add response // dando certo - 201 (created)
+        }
+        // TODO add response
     }
 
     /**

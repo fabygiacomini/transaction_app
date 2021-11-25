@@ -51,7 +51,7 @@ class User extends Authenticatable
      */
     public function wallet()
     {
-        $this->hasOne(Wallet::class);
+        return $this->hasOne(Wallet::class);
     }
 
     /**
@@ -60,6 +60,6 @@ class User extends Authenticatable
      */
     public function transactions()
     {
-        $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class);
     }
 }
