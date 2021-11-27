@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use App\Modules\Transaction\Service\TransactionServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -46,11 +47,20 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         try {
-            $this->transactionService->create(1, 2, 500.00);
+            DB::beginTransaction();
+
+            $transaction = $this->transactionService->create(1, 2, 500.00);
+
+            DB::commit();
+
         } catch (\Exception $exception) {
+
+            DB::rollBack();
             // TODO add response // dando certo - 201 (created)
         }
-        // TODO add response
+
+        // TODO add response com id da transacao realizada
+        // mandar mensagem, dependendo se der certo, retornar uma mensagem diferente ao usuário
     }
 
     /**

@@ -9,6 +9,7 @@ use App\Modules\Transaction\TransactionEntity;
 use App\Modules\Transaction\Validation\ProcessValidations;
 use App\Modules\TransactionAuthorizer\Service\TransactionAuthorizerServiceInterface;
 use App\Modules\User\Service\UserServiceInterface;
+use App\Modules\Wallet\Service\WalletServiceInterface;
 
 interface TransactionServiceInterface
 {
@@ -18,12 +19,14 @@ interface TransactionServiceInterface
      * @param UserServiceInterface $userInterface
      * @param TransactionAuthorizerServiceInterface $authorizerService
      * @param ProcessValidations $processValidations
+     * @param WalletServiceInterface $walletService
      */
     public function __construct(
         TransactionRepositoryInterface $transactionRepository,
         UserServiceInterface $userInterface,
         TransactionAuthorizerServiceInterface $authorizerService,
-        ProcessValidations $processValidations
+        ProcessValidations $processValidations,
+        WalletServiceInterface $walletService
     );
 
     /**

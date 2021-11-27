@@ -96,9 +96,9 @@ class TransactionEntity implements EntityInterface
 
     /**
      * @param Transaction $transactionModel
-     * @return EntityInterface
+     * @return TransactionEntity
      */
-    public function newEntityFromModel($transactionModel): EntityInterface
+    public static function newEntityFromModel($transactionModel): TransactionEntity
     {
         $transaction = new TransactionEntity();
         $transaction->setId($transactionModel->id);

@@ -12,6 +12,7 @@ class ACMETransactionAuthorizerRepository implements TransactionAuthorizerReposi
 
     public function verifyAuthorizator(UserEntity $userEntity, float $value): ?string
     {
+        // Done by PHP Curl, but the same can be done with Guzzle
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://run.mocky.io/v3/8fafdd68-a090-496f-8c9a-3442cf30dae6");
 
