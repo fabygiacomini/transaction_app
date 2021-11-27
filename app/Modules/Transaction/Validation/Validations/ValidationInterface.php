@@ -10,10 +10,11 @@ interface ValidationInterface
 {
 
     /**
-     * @param UserEntity $userEntity
+     * @param UserEntity $payer
+     * @param UserEntity $payee
      * @return boolean
      */
-    public function validate(UserEntity $userEntity, float $transactionValue): bool;
+    public function validate(UserEntity $payer, UserEntity $payee, float $transactionValue): bool;
 
     /**
      * Set next chain's validation.

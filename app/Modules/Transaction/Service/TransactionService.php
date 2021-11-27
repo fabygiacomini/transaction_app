@@ -4,14 +4,13 @@
 namespace App\Modules\Transaction\Service;
 
 
+use App\Exceptions\TransactionException;
 use App\Modules\Transaction\Repository\TransactionRepositoryInterface;
 use App\Modules\Transaction\TransactionEntity;
-use App\Modules\Transaction\Validation\ProcessValidations;
+use App\Modules\Transaction\Validation\ProcessValidationsInterface;
 use App\Modules\TransactionAuthorizer\Service\TransactionAuthorizerServiceInterface;
 use App\Modules\User\Service\UserServiceInterface;
 use App\Modules\Wallet\Service\WalletServiceInterface;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 
 class TransactionService implements TransactionServiceInterface
 {
@@ -32,7 +31,7 @@ class TransactionService implements TransactionServiceInterface
     private $authorizerService;
 
     /**
-     * @var ProcessValidations
+     * @var ProcessValidationsInterface
      */
     private $processValidations;
 
@@ -45,7 +44,7 @@ class TransactionService implements TransactionServiceInterface
         TransactionRepositoryInterface $transactionRepository,
         UserServiceInterface $userInterface,
         TransactionAuthorizerServiceInterface $authorizerService,
-        ProcessValidations $processValidations,
+        ProcessValidationsInterface $processValidations,
         WalletServiceInterface $walletService
     )
     {
@@ -63,22 +62,24 @@ class TransactionService implements TransactionServiceInterface
         $userPayee = $this->userService->getUserAndWallet($payeeId);
 
         // Process all the validations required for payer user
-        $transactionPermitted = $this->processValidations->validateTransaction($userPayer, $value, $this->authorizerService);
+        $transactionPermitted = $this->processValidations->validateTransaction($userPayer, $userPayee, $value, $this->authorizerService);
         if (!$transactionPermitted) {
-            throw new \Exception('A transferência não foi autorizada para este pagador. Cheque as informações e tente novamente.', 401);
+            throw new TransactionException('A transferência não foi autorizada para este pagador. Cheque as informações e tente novamente.', 401);
         }
 
         try {
 
-        $this->walletService->withdraw($userPayer, $value);
-        $this->walletService->deposit($userPayee, $value);
+            $this->walletService->withdraw($userPayer, $value);
+            $this->walletService->deposit($userPayee, $value);
 
-        $transaction = $this->transactionRepository->newTransaction($userPayer, $userPayee, $value);
+            $transaction = $this->transactionRepository->newTransaction($userPayer, $userPayee, $value);
 
-        return $transaction;
+            return $transaction;
 
+        } catch (TransactionException $transactionException) {
+            throw $transactionException;
         } catch (\Exception $exception) {
-            throw new \Exception('Ocorreu um erro ao realizar a transferência.', 500);
+            throw new TransactionException('Ocorreu um erro ao realizar a transferência.', 500);
         }
     }
 }

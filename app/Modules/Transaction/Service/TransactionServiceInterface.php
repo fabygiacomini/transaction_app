@@ -4,9 +4,10 @@
 namespace App\Modules\Transaction\Service;
 
 
+use App\Exceptions\TransactionException;
 use App\Modules\Transaction\Repository\TransactionRepositoryInterface;
 use App\Modules\Transaction\TransactionEntity;
-use App\Modules\Transaction\Validation\ProcessValidations;
+use App\Modules\Transaction\Validation\ProcessValidationsInterface;
 use App\Modules\TransactionAuthorizer\Service\TransactionAuthorizerServiceInterface;
 use App\Modules\User\Service\UserServiceInterface;
 use App\Modules\Wallet\Service\WalletServiceInterface;
@@ -18,14 +19,14 @@ interface TransactionServiceInterface
      * @param TransactionRepositoryInterface $transactionRepository
      * @param UserServiceInterface $userInterface
      * @param TransactionAuthorizerServiceInterface $authorizerService
-     * @param ProcessValidations $processValidations
+     * @param ProcessValidationsInterface $processValidations
      * @param WalletServiceInterface $walletService
      */
     public function __construct(
         TransactionRepositoryInterface $transactionRepository,
         UserServiceInterface $userInterface,
         TransactionAuthorizerServiceInterface $authorizerService,
-        ProcessValidations $processValidations,
+        ProcessValidationsInterface $processValidations,
         WalletServiceInterface $walletService
     );
 
@@ -35,6 +36,7 @@ interface TransactionServiceInterface
      * @param int $payeeId
      * @param float $value
      * @return TransactionEntity
+     * @throws TransactionException
      */
     public function create(int $payerId, int $payeeId, float $value): TransactionEntity;
 }

@@ -13,12 +13,12 @@ class UserTypeValidation implements ValidationInterface
      */
     private $nextValidation;
 
-    public function validate(UserEntity $userEntity, float $transactionValue): bool
+    public function validate(UserEntity $payer, UserEntity $payee, float $transactionValue): bool
     {
-        if ($userEntity->isShopkeeper()) {
+        if ($payer->isShopkeeper()) {
             return false;
         } else {
-            return $this->nextValidation->validate($userEntity, $transactionValue);
+            return $this->nextValidation->validate($payer, $payee, $transactionValue);
         }
     }
 

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\TransactionException;
+use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
 use App\Modules\Transaction\Service\TransactionServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
@@ -41,26 +44,39 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param TransactionRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TransactionRequest $request)
     {
         try {
             DB::beginTransaction();
 
-            $transaction = $this->transactionService->create(1, 2, 500.00);
+            $transaction = $this->transactionService->create(
+                $request->get('payer_id'),
+                $request->get('payee_id'),
+                $request->get('value')
+            );
 
             DB::commit();
 
-        } catch (\Exception $exception) {
+        } catch (TransactionException $exception) {
 
             DB::rollBack();
-            // TODO add response // dando certo - 201 (created)
+
+            return response($exception->getMessage(), $exception->getCode());
         }
 
-        // TODO add response com id da transacao realizada
+        $sucessMessage = "Transação realizada com sucesso! ID: " . $transaction->getId();
+
         // mandar mensagem, dependendo se der certo, retornar uma mensagem diferente ao usuário
+        try {
+
+        } catch (\Exception $exception) {
+            $sucessMessage .= ' No entanto, não foi possível enviar uma notificação ao usuário.';
+        }
+
+        return response($sucessMessage, Response::HTTP_CREATED);
     }
 
     /**

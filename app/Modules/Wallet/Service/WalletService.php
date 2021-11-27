@@ -4,6 +4,7 @@
 namespace App\Modules\Wallet\Service;
 
 
+use App\Exceptions\TransactionException;
 use App\Modules\User\UserEntity;
 use App\Modules\Wallet\Repository\WalletRepositoryInterface;
 use Illuminate\Http\Response;
@@ -21,13 +22,14 @@ class WalletService implements WalletServiceInterface
         $this->walletRepository = $walletRepository;
     }
 
+
     public function deposit(UserEntity $user, float $value): void
     {
         $newBalance = $user->getBalance() + $value;
         $user->setBalance($newBalance);
 
         if (!$this->walletRepository->updateUserBalance($user)) {
-            throw new \Exception('Houve um problema para recuperar a carteira do usuário!', Response::HTTP_NOT_FOUND);
+            throw new TransactionException('Houve um problema para recuperar a carteira do usuário!', Response::HTTP_NOT_FOUND);
         }
     }
 
@@ -37,7 +39,7 @@ class WalletService implements WalletServiceInterface
         $user->setBalance($newBalance);
 
         if (!$this->walletRepository->updateUserBalance($user)) {
-            throw new \Exception('Houve um problema para recuperar a carteira do usuário!', Response::HTTP_NOT_FOUND);
+            throw new TransactionException('Houve um problema para recuperar a carteira do usuário!', Response::HTTP_NOT_FOUND);
         }
     }
 }

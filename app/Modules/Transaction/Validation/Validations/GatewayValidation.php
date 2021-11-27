@@ -24,14 +24,14 @@ class GatewayValidation implements ValidationInterface
         $this->authorizerService = $authorizerService;
     }
 
-    public function validate(UserEntity $userEntity, float $transactionValue): bool
+    public function validate(UserEntity $payer, UserEntity $payee, float $transactionValue): bool
     {
-        $authorizerResponse = $this->authorizerService->verifyAuthorizator($userEntity, $transactionValue);
+        $authorizerResponse = $this->authorizerService->verifyAuthorizator($payer, $transactionValue);
 
         if ($authorizerResponse != 'Autorizado') {
             return false;
         } else {
-            return $this->nextValidation->validate($userEntity, $transactionValue);
+            return $this->nextValidation->validate($payer, $payee, $transactionValue);
         }
     }
 

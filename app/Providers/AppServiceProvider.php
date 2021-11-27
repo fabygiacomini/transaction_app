@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Modules\Transaction\Repository\TransactionRepositoryInterface;
 use App\Modules\Transaction\Service\TransactionService;
 use App\Modules\Transaction\Service\TransactionServiceInterface;
+use App\Modules\Transaction\Validation\ProcessValidations;
+use App\Modules\Transaction\Validation\ProcessValidationsInterface;
 use App\Modules\TransactionAuthorizer\Service\TransactionAuthorizerService;
 use App\Modules\TransactionAuthorizer\Service\TransactionAuthorizerServiceInterface;
 use App\Modules\User\Service\UserService;
@@ -35,6 +37,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             TransactionAuthorizerServiceInterface::class,
             TransactionAuthorizerService::class
+        );
+
+        $this->app->bind(
+            ProcessValidationsInterface::class,
+            ProcessValidations::class
         );
     }
 

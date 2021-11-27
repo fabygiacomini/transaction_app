@@ -6,19 +6,19 @@ namespace App\Modules\Transaction\Validation;
 
 use App\Modules\User\UserEntity;
 
-class UserBalanceValidation implements ValidationInterface
+class UserIntegrityValidation implements ValidationInterface
 {
     /**
      * @var ValidationInterface
      */
     private $nextValidation;
 
-    public function validate(UserEntity $userEntity, float $transactionValue): bool
+    public function validate(UserEntity $payer, UserEntity $payee, float $transactionValue): bool
     {
-        if ($userEntity->getBalance() < $transactionValue) {
+        if (!$payer || !$payee || ($payer === $payee)) {
             return false;
         } else {
-            return $this->nextValidation->validate($userEntity, $transactionValue);
+            return $this->nextValidation->validate($payer, $payee, $transactionValue);
         }
     }
 
