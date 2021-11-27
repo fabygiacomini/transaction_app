@@ -44,4 +44,11 @@ interface TransactionServiceInterface
      * @return array
      */
     public function getTransactions(): array;
+
+    /**
+     * @param TransactionEntity $transactionEntity
+     * @return bool
+     * @throws \Exception
+     */
+    public function notifyTransactionPayee(TransactionEntity $transactionEntity): bool;
 }

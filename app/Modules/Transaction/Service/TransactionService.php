@@ -11,6 +11,7 @@ use App\Modules\Transaction\Validation\ProcessValidationsInterface;
 use App\Modules\TransactionAuthorizer\Service\TransactionAuthorizerServiceInterface;
 use App\Modules\User\Service\UserServiceInterface;
 use App\Modules\Wallet\Service\WalletServiceInterface;
+use App\Send\SendNotification;
 
 class TransactionService implements TransactionServiceInterface
 {
@@ -55,6 +56,11 @@ class TransactionService implements TransactionServiceInterface
         $this->walletService = $walletService;
     }
 
+    public function getTransactions(): array
+    {
+        return $this->transactionRepository->getTransactions();
+    }
+
     public function create(int $payerId, int $payeeId, float $value): TransactionEntity
     {
         // Find the payer/payee users and their wallets
@@ -72,9 +78,7 @@ class TransactionService implements TransactionServiceInterface
             $this->walletService->withdraw($userPayer, $value);
             $this->walletService->deposit($userPayee, $value);
 
-            $transaction = $this->transactionRepository->newTransaction($userPayer, $userPayee, $value);
-
-            return $transaction;
+            return $this->transactionRepository->newTransaction($userPayer, $userPayee, $value);
 
         } catch (TransactionException $transactionException) {
             throw $transactionException;
@@ -84,8 +88,19 @@ class TransactionService implements TransactionServiceInterface
         }
     }
 
-    public function getTransactions(): array
+    public function notifyTransactionPayee(TransactionEntity $transactionEntity): bool
     {
-        return $this->transactionRepository->getTransactions();
+        $payee = $this->userService->getUserAndWallet($transactionEntity->getPayeeId());
+
+        if (!$payee) {
+            throw new \Exception('Usuário não encontrado!', 404);
+        }
+
+        try {
+            return SendNotification::notificate($payee);
+
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
     }
 }
