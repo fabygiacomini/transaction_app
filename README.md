@@ -1,66 +1,109 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Easy Transactions
+## API de Transferências e cadastro de Usuários
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+API feita na linguagem PHP com uso do Framework Laravel e banco de dados MySQL.<br>
+Dentre as funcionalidades do sistema, temos:
+- gerenciamento de usuários (cadastro, atualização, remoção, listagem e consultas);
+- realização de transferência financeira entre dois usuários, seguindo algumas regras, como, por exemplo: usuário do tipo lojista apenas recebe, não transfere; só pode transferir se tiver saldo e após aprovação de consulta a sistema externo.
+<br>
+  
+Neste sistema foram implementados alguns Design Patterns, como: Chain of Responsibility, na cadeia de validações prévias pelas quais os dados da transferência passam antes desta podeer ser realizada. Ou pattern que pode ser citado é o Strategy, ao estabelecer algumas regras para se criar entidades, permitindo que cada uma implemente o método da forma que precisar, mas garantindo que todas as entidades tenham a referida função por meio do "contrato" da interface usada.<br>
+<br>
 
-## About Laravel
+----
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## How to Use
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Ambiente
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+É necessário possuir o Docker e o Docker-compose na máquina que executará a aplicação.<br>
 
-## Learning Laravel
+- Copiar o arquivo `.env.example` e renomeá-lo para `.env`, a fim de termos as configurações de conexão de banco de dados.<br>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Com Make:**<br>
+- Executar, na pasta do projeto, o comando  `make prepare-environment`.<br>
+Este comando já inicializará os containers da aplicação, instalará o que for necessário pelo composer, e prepará o banco de dados, executando as migrations e populando as tabelas users e wallets com alguns seeders para facilitar os testes.
+<br>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Sem o Make:**<br>
+- Executar o comando `docker-compose up -d` para iniciar o ambiente.
+- Rodar o comando `docker exec transaction-app php artisan migrate` para inicializar as tabelas do banco de dados dentro do container.
+- Caso seja interessante, pode-se rodar os seeders para criar alguns usuários/carteiras de exemplo, com o seguinte comando `docker exec transaction-app php artisan db:seed UserSeeder` e `docker exec transaction-app php artisan db:seed WalletSeeder`.
+No entanto, os usuários podem ser criados/gerenciados manualmente por meio de requisições às rotas específicas, como será explicado mais abaixo.
+<br>
 
-## Laravel Sponsors
+```
+* A API usará a porta 8000 do localhost;
+* O PHP MyAdmin estará na porta 8002.
+```
+<br>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+----
 
-### Premium Partners
+### Requests
+Para testarmos as rotas, podemos importar o exemplo de requisições (json presente na pasta `/requests-exemple`) para o Postman com o comando `command + O` ou `ctrl + O`, para facilitar.<br>
+Para realizar requisições para a API, podemos seguir as instruções abaixo para cada uma das rotas:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-- **[Romega Software](https://romegasoftware.com)**
+#### *Rotas de Transação*
 
-## Contributing
+- **POST** -> `/api/transaction`<br>
+Cria uma nova transação.<br>
+Payload (form-data)
+```
+{
+    "payer_id":1,
+    "payee_id":2,
+    "value":120.80
+}
+```
+<br>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **GET** -> `/api/transaction`<br>
+Lista todas as transações para consulta.
+<br>
 
-## Code of Conduct
+#### *Rotas de Usuário*
+- **GET** -> `/api/user`<br>
+Retorna todos os usuários cadastrados
+<br>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+- **GET** -> `/api/user/1`<br>
+Retorna os dados do usuário cujo ID tenha sido passado como parâmetro ao endpoint
+<br>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+- **POST** -> `/api/user`<br>
+Insere um novo usuário.<br>
+Payload (form-data)
+```
+{
+    "name":"Hanzo Shimada",
+    "email":"hanzo@overwatch.com",
+    "password": 1234,
+    "cpf_cnpj":123456789,
+    "shopkeeper:0
+}
+```
+<br>
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **PUT** -> `/api/user`<br>
+Atualiza os dados do usuário.<br>
+Payload (x-www-form-urlencoded)
+```
+{
+    "id":3
+    "name":"Hanzo Shimada",
+    "email":"hanzo@overwatch.com",
+    "password": 1234,
+    "cpf_cnpj":123456789,
+    "shopkeeper:0
+}
+```
+<br>
+
+- **DELETE** -> `/api/delete/3`
+Remove o usuário do banco de dados.<br>
+<br>
+
+----
