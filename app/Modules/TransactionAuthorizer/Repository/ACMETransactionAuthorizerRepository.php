@@ -8,6 +8,9 @@ use App\Modules\User\UserEntity;
 class ACMETransactionAuthorizerRepository implements TransactionAuthorizerRepositoryInterface
 {
 
+    /**
+     * @inheritDoc
+     */
     public function verifyAuthorizator(UserEntity $userEntity, float $value): ?string
     {
         // Done by PHP Curl, but the same can be done with Guzzle

@@ -10,6 +10,9 @@ use App\Modules\User\UserEntity;
 class EloquentWalletRepository implements WalletRepositoryInterface
 {
 
+    /**
+     * @inheritDoc
+     */
     public function updateUserBalance(UserEntity $user): bool
     {
         $wallet = Wallet::where('user_id', $user->getId())->first();
@@ -24,6 +27,9 @@ class EloquentWalletRepository implements WalletRepositoryInterface
         return true;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getWallet(UserEntity $userEntity): ?int
     {
         $wallet = Wallet::where('user_id', $userEntity->getId())->get();
@@ -31,6 +37,9 @@ class EloquentWalletRepository implements WalletRepositoryInterface
         return $wallet->isEmpty() ? null : $wallet->id;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function createWallet(UserEntity $userEntity): void
     {
         $wallet = new Wallet();

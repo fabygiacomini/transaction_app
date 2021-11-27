@@ -18,6 +18,7 @@ interface WalletServiceInterface
     public function __construct(WalletRepositoryInterface $walletRepository);
 
     /**
+     * Deposit transaction's value on an user's wallet.
      * @param UserEntity $user
      * @param float $value
      * @throws TransactionException
@@ -25,6 +26,7 @@ interface WalletServiceInterface
     public function deposit(UserEntity $user, float $value): void;
 
     /**
+     * Withdraw transaction's value on an user's wallet.
      * @param UserEntity $user
      * @param float $value
      * @throws TransactionException
@@ -32,12 +34,14 @@ interface WalletServiceInterface
     public function withdraw(UserEntity $user, float $value): void;
 
     /**
+     * Create a new wallet for an user.
      * @param UserEntity $userEntity
      * @throws UserException
      */
     public function createWallet(UserEntity $userEntity): void;
 
     /**
+     * Get data of an user's wallet.
      * @param UserEntity $userEntity
      * @return int
      */

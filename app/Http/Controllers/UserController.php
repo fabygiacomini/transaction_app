@@ -29,7 +29,7 @@ class UserController extends Controller
     public function index(): Response
     {
         try {
-            return response($this->userService->getUsers(), 200);
+            return response($this->userService->getUsers(), Response::HTTP_OK);
 
         } catch (\Exception $exception) {
             return response(['message' => 'Não foi possível recuperar os usuários cadastrados.'], Response::HTTP_NOT_FOUND);
@@ -45,7 +45,7 @@ class UserController extends Controller
     public function show(int $id): Response
     {
         try {
-            return response($this->userService->findUser($id), 200);
+            return response($this->userService->findUser($id), Response::HTTP_OK);
 
         } catch (\Exception $exception) {
             return response(['message' => 'Não foi possível encontrar o usuário informado.'], Response::HTTP_NOT_FOUND);
@@ -73,7 +73,7 @@ class UserController extends Controller
             $createdUser = $this->userService->createNewUser($user);
 
             DB::commit();
-            return response(['message' => 'Novo usuário criado com sucesso! ID: '. $createdUser->getId()], 201);
+            return response(['message' => 'Novo usuário criado com sucesso! ID: '. $createdUser->getId()], Response::HTTP_CREATED);
 
         } catch (UserException $userException) {
             DB::rollBack();
@@ -81,7 +81,7 @@ class UserController extends Controller
 
         } catch (\Exception $exception) {
             DB::rollBack();
-            return response(['message' => 'Não foi possível criar o usuário.'], 500);
+            return response(['message' => 'Não foi possível criar o usuário.'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -104,13 +104,13 @@ class UserController extends Controller
 
             $createdUser = $this->userService->updateUser($user);
 
-            return response(['message' => 'Usuário atualizado com sucesso! ID: ' . $createdUser->getId()], 201);
+            return response(['message' => 'Usuário atualizado com sucesso! ID: ' . $createdUser->getId()], Response::HTTP_CREATED);
 
         } catch (UserException $userException) {
             return response(['message' => $userException->getMessage()], $userException->getCode());
 
         } catch (\Exception $exception) {
-            return response(['message' => 'Não foi possível criar o usuário.'], 500);
+            return response(['message' => 'Não foi possível criar o usuário.'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -120,17 +120,17 @@ class UserController extends Controller
      * @param  int  $userId
      * @return Response
      */
-    public function destroy(int $userId)
+    public function destroy(int $userId): Response
     {
         try {
             $this->userService->deleteUser($userId);
-            return response(['message' => 'Usuário removido com sucesso!'], 200);
+            return response(['message' => 'Usuário removido com sucesso!'], Response::HTTP_CREATED);
 
         } catch (UserException $userException) {
             return response(['message' => $userException->getMessage()], $userException->getCode());
 
         } catch (\Exception $exception) {
-            return response(['message' => 'Ocerreu um erro ao tentar remover o usuário.'], 500);
+            return response(['message' => 'Ocorreu um erro ao tentar remover o usuário.'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

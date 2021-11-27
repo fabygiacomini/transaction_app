@@ -10,6 +10,9 @@ use App\Modules\User\UserEntity;
 class EloquentUserRepository implements UserRepositoryInterface
 {
 
+    /**
+     * @inheritDoc
+     */
     public function getUserAndWallet(int $userId): ?UserEntity
     {
         $user = User::find($userId);
@@ -17,17 +20,26 @@ class EloquentUserRepository implements UserRepositoryInterface
         return UserEntity::newEntityFromModel($user);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getUsers(): array
     {
         // Bring every user with his wallet
         return User::with('wallet')->get()->toArray();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function findUser(int $id)
     {
         return User::find($id);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function createNewUser(UserEntity $userEntity): UserEntity
     {
         $newUser = new User();
@@ -39,6 +51,9 @@ class EloquentUserRepository implements UserRepositoryInterface
         return UserEntity::newEntityFromModel($newUser);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function updateUser(UserEntity $userEntity): ?UserEntity
     {
         $user = User::find($userEntity->getId());
@@ -54,6 +69,9 @@ class EloquentUserRepository implements UserRepositoryInterface
         return UserEntity::newEntityFromModel($user);
     }
 
+    /**
+     * @inheritDoc
+     */
     function fillUserFields(User $user, UserEntity $userEntity): User
     {
 
@@ -66,6 +84,9 @@ class EloquentUserRepository implements UserRepositoryInterface
         return $user;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function deleteUser(int $userId): bool
     {
         $user = User::find($userId);

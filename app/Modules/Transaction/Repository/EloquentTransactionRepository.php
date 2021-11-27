@@ -11,7 +11,9 @@ use App\Modules\User\UserEntity;
 class EloquentTransactionRepository implements TransactionRepositoryInterface
 {
 
-
+    /**
+     * @inheritDoc
+     */
     public function newTransaction(UserEntity $payer, UserEntity $payee, float $value): TransactionEntity
     {
         $transaction = new Transaction();
@@ -23,6 +25,9 @@ class EloquentTransactionRepository implements TransactionRepositoryInterface
         return TransactionEntity::newEntityFromModel($transaction);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTransactions(): array
     {
         return Transaction::all()->toArray();

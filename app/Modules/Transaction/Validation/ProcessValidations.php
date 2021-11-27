@@ -13,6 +13,9 @@ use App\Modules\User\UserEntity;
 
 class ProcessValidations implements ProcessValidationsInterface
 {
+    /**
+     * @inheritDoc
+     */
     public function validateTransaction(
         UserEntity $userPayer,
         UserEntity $userPayee,

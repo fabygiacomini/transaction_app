@@ -24,6 +24,9 @@ class GatewayValidation implements ValidationInterface
         $this->authorizerService = $authorizerService;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function validate(UserEntity $payer, UserEntity $payee, float $transactionValue): bool
     {
         $authorizerResponse = $this->authorizerService->verifyAuthorizator($payer, $transactionValue);
@@ -35,6 +38,9 @@ class GatewayValidation implements ValidationInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function setNext(ValidationInterface $nextValidation): void
     {
         $this->nextValidation = $nextValidation;

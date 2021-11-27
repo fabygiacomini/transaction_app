@@ -23,7 +23,9 @@ class WalletService implements WalletServiceInterface
         $this->walletRepository = $walletRepository;
     }
 
-
+    /**
+     * @inheritDoc
+     */
     public function deposit(UserEntity $user, float $value): void
     {
         $newBalance = $user->getBalance() + $value;
@@ -34,6 +36,9 @@ class WalletService implements WalletServiceInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function withdraw(UserEntity $user, float $value): void
     {
         $newBalance = $user->getBalance() - $value;
@@ -44,16 +49,22 @@ class WalletService implements WalletServiceInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function createWallet(UserEntity $userEntity): void
     {
         // if a wallet already exists for this user, we don't create it
         if ($this->getWallet($userEntity)) {
-            throw new UserException('Já existe uma carteira para esse usuário!', 500);
+            throw new UserException('Já existe uma carteira para esse usuário!', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         $this->walletRepository->createWallet($userEntity);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getWallet(UserEntity $userEntity): ?int
     {
         return $this->walletRepository->getWallet($userEntity);

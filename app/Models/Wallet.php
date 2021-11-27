@@ -14,6 +14,10 @@ class Wallet extends Model
         'balance'
     ];
 
+    /**
+     * Define the relationship between Users table
+     * and Wallets table (1 -> 1)
+     */
     public function user()
     {
         return $this->belongsTo(User::class);

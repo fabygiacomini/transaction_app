@@ -10,6 +10,7 @@ interface ValidationInterface
 {
 
     /**
+     * Process a validation to verify if a transaction can be made.
      * @param UserEntity $payer
      * @param UserEntity $payee
      * @return boolean

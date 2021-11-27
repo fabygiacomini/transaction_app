@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Http;
 
 class SendNotification
 {
+    /**
+     * Send a notification to user (mock) and verify if it was successful made.
+     * @param UserEntity $userEntity
+     * @return bool
+     */
     public static function notificate(UserEntity $userEntity): bool
     {
         $response = self::send($userEntity);

@@ -18,6 +18,9 @@ class TransactionAuthorizerService implements TransactionAuthorizerServiceInterf
         $this->authorizerRepository = $authorizerRepository;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function verifyAuthorizator(UserEntity $userEntity, float $value): ?string
     {
         $response = $this->authorizerRepository->verifyAuthorizator($userEntity, $value);

@@ -35,6 +35,7 @@ interface UserServiceInterface
     public function getUsers(): array;
 
     /**
+     * Find one user on database.
      * @param int $id
      * @return mixed
      */
@@ -49,6 +50,7 @@ interface UserServiceInterface
     public function createNewUser(UserEntity $userEntity): UserEntity;
 
     /**
+     * Update user fields.
      * @param UserEntity $userEntity
      * @return UserEntity
      * @throws UserException
@@ -57,6 +59,7 @@ interface UserServiceInterface
 
 
     /**
+     * Remove an user from database.
      * @param int $userId
      * @return bool
      * @throws UserException

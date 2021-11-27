@@ -9,6 +9,9 @@ use App\Modules\User\UserEntity;
 class EndOfValidation implements ValidationInterface
 {
     // Chain's end
+    /**
+     * @inheritDoc
+     */
     public function validate(UserEntity $payer, UserEntity $payee, float $transactionValue): bool
     {
         // if the validation check this point, it's becouse none of the
@@ -16,6 +19,9 @@ class EndOfValidation implements ValidationInterface
         return true;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function setNext(ValidationInterface $nextValidation): void
     {
     }

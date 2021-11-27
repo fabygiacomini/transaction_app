@@ -29,7 +29,7 @@ class TransactionController extends Controller
     public function index(): Response
     {
         try {
-            return response($this->transactionService->getTransactions(), 200);
+            return response($this->transactionService->getTransactions(), Response::HTTP_OK);
 
         } catch (\Exception $exception) {
             return response(['message' => 'Não foi possível recuperar as transações.'], Response::HTTP_NOT_FOUND);

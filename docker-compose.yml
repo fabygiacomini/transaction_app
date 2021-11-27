@@ -25,8 +25,7 @@ services:
     - "443:443"
     volumes:
       - ./:/var/www
-      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
-
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
         - transaction-network
 
@@ -39,7 +38,7 @@ services:
     - "3306:3306"
     volumes:
       - dbdata:/var/lib/mysql/
-      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=transactiondb

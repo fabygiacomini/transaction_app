@@ -16,6 +16,7 @@ interface ProcessValidationsInterface
 {
 
     /**
+     * Create and call the chain of validations.
      * @param UserEntity $userPayer
      * @param UserEntity $userPayee
      * @param float $transactionValue

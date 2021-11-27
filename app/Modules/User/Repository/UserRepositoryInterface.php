@@ -22,7 +22,11 @@ interface UserRepositoryInterface
      */
     public function getUsers(): array;
 
-
+    /**
+     * Find one user by id.
+     * @param int $id
+     * @return mixed
+     */
     public function findUser(int $id);
 
     /**
@@ -32,14 +36,15 @@ interface UserRepositoryInterface
      */
     public function createNewUser(UserEntity $userEntity): UserEntity;
 
-
     /**
+     * Update an user fields.
      * @param UserEntity $userEntity
      * @return UserEntity
      */
     public function updateUser(UserEntity $userEntity): ?UserEntity;
 
     /**
+     * Fill the fiels of user model with entity attributes.
      * @param User $user
      * @param UserEntity $userEntity
      * @return User
@@ -47,6 +52,7 @@ interface UserRepositoryInterface
     function fillUserFields(User $user, UserEntity $userEntity): User;
 
     /**
+     * Remove an user form database.
      * @param int $userId
      * @return bool
      */

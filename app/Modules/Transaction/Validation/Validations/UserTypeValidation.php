@@ -13,6 +13,9 @@ class UserTypeValidation implements ValidationInterface
      */
     private $nextValidation;
 
+    /**
+     * @inheritDoc
+     */
     public function validate(UserEntity $payer, UserEntity $payee, float $transactionValue): bool
     {
         if ($payer->isShopkeeper()) {
@@ -22,6 +25,9 @@ class UserTypeValidation implements ValidationInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function setNext(ValidationInterface $nextValidation): void
     {
         $this->nextValidation = $nextValidation;

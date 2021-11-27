@@ -12,6 +12,7 @@ use App\Modules\TransactionAuthorizer\Service\TransactionAuthorizerServiceInterf
 use App\Modules\User\Service\UserServiceInterface;
 use App\Modules\Wallet\Service\WalletServiceInterface;
 use App\Send\SendNotification;
+use Illuminate\Http\Response;
 
 class TransactionService implements TransactionServiceInterface
 {
@@ -56,11 +57,17 @@ class TransactionService implements TransactionServiceInterface
         $this->walletService = $walletService;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTransactions(): array
     {
         return $this->transactionRepository->getTransactions();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function create(int $payerId, int $payeeId, float $value): TransactionEntity
     {
         // Find the payer/payee users and their wallets
@@ -70,7 +77,7 @@ class TransactionService implements TransactionServiceInterface
         // Process all the validations required for payer user
         $transactionPermitted = $this->processValidations->validateTransaction($userPayer, $userPayee, $value, $this->authorizerService);
         if (!$transactionPermitted) {
-            throw new TransactionException('A transferência não foi autorizada para este pagador. Cheque as informações e tente novamente.', 401);
+            throw new TransactionException('A transferência não foi autorizada para este pagador. Cheque as informações e tente novamente.', Response::HTTP_UNAUTHORIZED);
         }
 
         try {
@@ -84,16 +91,19 @@ class TransactionService implements TransactionServiceInterface
             throw $transactionException;
         } catch (\Exception $exception) {
 
-            throw new TransactionException('Ocorreu um erro ao realizar a transferência.', 500);
+            throw new TransactionException('Ocorreu um erro ao realizar a transferência.', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function notifyTransactionPayee(TransactionEntity $transactionEntity): bool
     {
         $payee = $this->userService->getUserAndWallet($transactionEntity->getPayeeId());
 
         if (!$payee) {
-            throw new \Exception('Usuário não encontrado!', 404);
+            throw new \Exception('Usuário não encontrado!', Response::HTTP_NOT_FOUND);
         }
 
         try {

@@ -13,6 +13,9 @@ class UserBalanceValidation implements ValidationInterface
      */
     private $nextValidation;
 
+    /**
+     * @inheritDoc
+     */
     public function validate(UserEntity $payer, UserEntity $payee, float $transactionValue): bool
     {
         if ($payer->getBalance() < $transactionValue) {
@@ -22,6 +25,9 @@ class UserBalanceValidation implements ValidationInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function setNext(ValidationInterface $nextValidation): void
     {
         $this->nextValidation = $nextValidation;

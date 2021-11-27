@@ -31,21 +31,33 @@ class UserService implements UserServiceInterface
         $this->walletService = $walletService;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getUserAndWallet(int $userId): ?UserEntity
     {
         return $this->userRepository->getUserAndWallet($userId);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getUsers(): array
     {
         return $this->userRepository->getUsers();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function findUser(int $id)
     {
         return $this->userRepository->findUser($id);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function createNewUser(UserEntity $userEntity): UserEntity
     {
         try {
@@ -61,17 +73,23 @@ class UserService implements UserServiceInterface
         return $newUser;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function updateUser(UserEntity $userEntity): UserEntity
     {
         $user = $this->userRepository->updateUser($userEntity);
 
         if (!$user) {
-            throw new UserException('Usuário a ser atualizado não foi encontrado!', 404);
+            throw new UserException('Usuário a ser atualizado não foi encontrado!', Response::HTTP_NOT_FOUND);
         }
 
         return $user;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function deleteUser(int $userId): bool
     {
         if (!$userId) {
@@ -79,7 +97,7 @@ class UserService implements UserServiceInterface
         }
 
         if (!$this->userRepository->deleteUser($userId)) {
-            throw new UserException('Usuário a ser removido não foi encontrado!', 404);
+            throw new UserException('Usuário a ser removido não foi encontrado!', Response::HTTP_NOT_FOUND);
         }
 
         return true;

@@ -10,6 +10,7 @@ use App\Modules\User\UserEntity;
 interface TransactionRepositoryInterface
 {
     /**
+     * Insert a new transaction.
      * @param UserEntity $payer
      * @param UserEntity $payee
      * @param float $value
@@ -18,6 +19,7 @@ interface TransactionRepositoryInterface
     public function newTransaction(UserEntity $payer, UserEntity $payee, float $value): TransactionEntity;
 
     /**
+     * List all transactions.
      * @return array
      */
     public function getTransactions(): array;

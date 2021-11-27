@@ -95,6 +95,7 @@ class TransactionEntity implements EntityInterface
 
 
     /**
+     * Generate a TransactionEntity from a Transaction (model).
      * @param Transaction $transactionModel
      * @return TransactionEntity
      */

@@ -2,12 +2,19 @@
 ## API de Transferências e cadastro de Usuários
 
 API feita na linguagem PHP com uso do Framework Laravel e banco de dados MySQL.<br>
+- PHP 7.3.11
+- Laravel 8.73.2
+- MySQL 5.7.26
+- Servidor Nginx 1.21.3
+
 Dentre as funcionalidades do sistema, temos:
 - gerenciamento de usuários (cadastro, atualização, remoção, listagem e consultas);
 - realização de transferência financeira entre dois usuários, seguindo algumas regras, como, por exemplo: usuário do tipo lojista apenas recebe, não transfere; só pode transferir se tiver saldo e após aprovação de consulta a sistema externo.
 <br>
   
-Neste sistema foram implementados alguns Design Patterns, como: Chain of Responsibility, na cadeia de validações prévias pelas quais os dados da transferência passam antes desta podeer ser realizada. Ou pattern que pode ser citado é o Strategy, ao estabelecer algumas regras para se criar entidades, permitindo que cada uma implemente o método da forma que precisar, mas garantindo que todas as entidades tenham a referida função por meio do "contrato" da interface usada.<br>
+Neste sistema foram implementados alguns **Design Patterns**, como: *Chain of Responsibility*, na cadeia de validações prévias pelas quais os dados da transferência passam antes desta poder ser realizada. Outro pattern que pode ser citado é o *Strategy*, utilizado em vários pontos, como, por exemplo, ao estabelecer algumas regras para se criar entidades, permitindo que cada uma implemente o método da forma que precisar, mas garantindo que todas as entidades tenham a referida função por meio do "contrato" da interface usada.<br>
+<br>
+No desenvolvimento desta API, buscou-se, também, manter uma arquitetura/estrutura mais "limpa", a fim de permitir que se altere, com mais facilidade, as regras de negócio do banco de dados, caso haja necessidade de mudanças futuras.
 <br>
 
 ----
@@ -41,7 +48,7 @@ No entanto, os usuários podem ser criados/gerenciados manualmente por meio de r
 ----
 
 ### Requests
-Para testarmos as rotas, podemos importar o exemplo de requisições (json presente na pasta `/requests-exemple`) para o Postman com o comando `command + O` ou `ctrl + O`, para facilitar.<br>
+Para testarmos as rotas, podemos importar o exemplo de requisições (json presente na pasta `/requests-example`) para o Postman com o comando `command + O` ou `ctrl + O`, para facilitar.<br>
 Para realizar requisições para a API, podemos seguir as instruções abaixo para cada uma das rotas:
 
 #### *Rotas de Transação*
@@ -107,3 +114,5 @@ Remove o usuário do banco de dados.<br>
 <br>
 
 ----
+
+**PS:** Foi adicionado o header 'X-Requested-With': 'XMLHttpRequest' nas requisições para que fosse possível visualizar as mensagens de erro pelo Postman, visto que o Laravel, em caso de erro, estava apenas redirecionando para a view do index, sem mostrar a resposta e o status code. 
