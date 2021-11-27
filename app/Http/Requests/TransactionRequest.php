@@ -24,9 +24,9 @@ class TransactionRequest extends FormRequest
     public function rules()
     {
         return [
-            'payer_id' => 'required|number',
-            'payee_id' => 'required|number',
-            'value' => 'required|number'
+            'payer_id' => 'required|numeric',
+            'payee_id' => 'required|numeric',
+            'value' => 'required|numeric'
         ];
     }
 }

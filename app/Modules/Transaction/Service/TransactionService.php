@@ -79,7 +79,13 @@ class TransactionService implements TransactionServiceInterface
         } catch (TransactionException $transactionException) {
             throw $transactionException;
         } catch (\Exception $exception) {
+
             throw new TransactionException('Ocorreu um erro ao realizar a transferência.', 500);
         }
+    }
+
+    public function getTransactions(): array
+    {
+        return $this->transactionRepository->getTransactions();
     }
 }

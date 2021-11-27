@@ -22,4 +22,9 @@ class EloquentTransactionRepository implements TransactionRepositoryInterface
 
         return TransactionEntity::newEntityFromModel($transaction);
     }
+
+    public function getTransactions(): array
+    {
+        return Transaction::all()->toArray();
+    }
 }

@@ -12,9 +12,9 @@ class EloquentWalletRepository implements WalletRepositoryInterface
 
     public function updateUserBalance(UserEntity $user): bool
     {
-        $wallet = Wallet::where('user_id', $user->getId())->get();
+        $wallet = Wallet::where('user_id', $user->getId())->first();
 
-        if ($wallet->isEmpty()) {
+        if (!$wallet) {
             return false;
         }
 
@@ -22,5 +22,21 @@ class EloquentWalletRepository implements WalletRepositoryInterface
         $wallet->save();
 
         return true;
+    }
+
+    public function getWallet(UserEntity $userEntity): ?int
+    {
+        $wallet = Wallet::where('user_id', $userEntity->getId())->get();
+
+        return $wallet->isEmpty() ? null : $wallet->id;
+    }
+
+    public function createWallet(UserEntity $userEntity): void
+    {
+        $wallet = new Wallet();
+        $wallet->user_id = $userEntity->getId();
+        $wallet->balance = 0;
+
+        $wallet->save();
     }
 }

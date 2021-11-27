@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Modules\TransactionAuthorization\Repository;
+namespace App\Modules\TransactionAuthorizer\Repository;
 
 
 use App\Modules\User\UserEntity;

@@ -11,6 +11,8 @@ use App\Modules\TransactionAuthorizer\Service\TransactionAuthorizerService;
 use App\Modules\TransactionAuthorizer\Service\TransactionAuthorizerServiceInterface;
 use App\Modules\User\Service\UserService;
 use App\Modules\User\Service\UserServiceInterface;
+use App\Modules\Wallet\Service\WalletService;
+use App\Modules\Wallet\Service\WalletServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,6 +39,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             TransactionAuthorizerServiceInterface::class,
             TransactionAuthorizerService::class
+        );
+
+        $this->app->bind(
+            WalletServiceInterface::class,
+            WalletService::class
         );
 
         $this->app->bind(

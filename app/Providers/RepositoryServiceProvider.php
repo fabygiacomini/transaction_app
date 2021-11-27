@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Modules\Transaction\Repository\EloquentTransactionRepository;
 use App\Modules\Transaction\Repository\TransactionRepositoryInterface;
-use App\Modules\TransactionAuthorization\Repository\TransactionAuthorizerRepositoryInterface;
+use App\Modules\TransactionAuthorizer\Repository\TransactionAuthorizerRepositoryInterface;
 use App\Modules\TransactionAuthorizer\Repository\ACMETransactionAuthorizerRepository;
 use App\Modules\User\Repository\EloquentUserRepository;
 use App\Modules\User\Repository\UserRepositoryInterface;
+use App\Modules\Wallet\Repository\EloquentWalletRepository;
+use App\Modules\Wallet\Repository\WalletRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -34,6 +36,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             TransactionAuthorizerRepositoryInterface::class,
             ACMETransactionAuthorizerRepository::class
+        );
+
+        $this->app->bind(
+            WalletRepositoryInterface::class,
+            EloquentWalletRepository::class
         );
     }
 

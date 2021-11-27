@@ -3,8 +3,7 @@
 
 namespace App\Modules\TransactionAuthorizer\Service;
 
-
-use App\Modules\TransactionAuthorization\Repository\TransactionAuthorizerRepositoryInterface;
+use App\Modules\TransactionAuthorizer\Repository\TransactionAuthorizerRepositoryInterface;
 use App\Modules\User\UserEntity;
 
 interface TransactionAuthorizerServiceInterface

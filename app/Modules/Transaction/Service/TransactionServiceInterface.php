@@ -39,4 +39,9 @@ interface TransactionServiceInterface
      * @throws TransactionException
      */
     public function create(int $payerId, int $payeeId, float $value): TransactionEntity;
+
+    /**
+     * @return array
+     */
+    public function getTransactions(): array;
 }

@@ -3,8 +3,6 @@
 
 namespace App\Modules\TransactionAuthorizer\Repository;
 
-
-use App\Modules\TransactionAuthorization\Repository\TransactionAuthorizerRepositoryInterface;
 use App\Modules\User\UserEntity;
 
 class ACMETransactionAuthorizerRepository implements TransactionAuthorizerRepositoryInterface

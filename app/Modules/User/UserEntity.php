@@ -25,6 +25,27 @@ class UserEntity implements EntityInterface
     private $email;
 
     /**
+     * @var string
+     */
+    private $password;
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+    /**
      * @var integer
      */
     private $cpfCnpj;

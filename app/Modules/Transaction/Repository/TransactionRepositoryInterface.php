@@ -16,4 +16,9 @@ interface TransactionRepositoryInterface
      * @return TransactionEntity
      */
     public function newTransaction(UserEntity $payer, UserEntity $payee, float $value): TransactionEntity;
+
+    /**
+     * @return array
+     */
+    public function getTransactions(): array;
 }

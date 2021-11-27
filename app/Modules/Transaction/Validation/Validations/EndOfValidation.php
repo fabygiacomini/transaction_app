@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Modules\Transaction\Validation;
+namespace App\Modules\Transaction\Validation\Validations;
 
 
 use App\Modules\User\UserEntity;

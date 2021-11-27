@@ -30,15 +30,12 @@ class TransactionController extends Controller
      */
     public function index()
     {
-    }
+        try {
+            return response($this->transactionService->getTransactions(), 200);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
+        } catch (\Exception $exception) {
+            return response(['message' => 'Não foi possível recuperar as transações.'], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -64,7 +61,7 @@ class TransactionController extends Controller
 
             DB::rollBack();
 
-            return response($exception->getMessage(), $exception->getCode());
+            return response(['message' => $exception->getMessage()], $exception->getCode());
         }
 
         $sucessMessage = "Transação realizada com sucesso! ID: " . $transaction->getId();
@@ -76,51 +73,6 @@ class TransactionController extends Controller
             $sucessMessage .= ' No entanto, não foi possível enviar uma notificação ao usuário.';
         }
 
-        return response($sucessMessage, Response::HTTP_CREATED);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Transaction $transaction)
-    {
-        //
+        return response(['message' => $sucessMessage], Response::HTTP_CREATED);
     }
 }
