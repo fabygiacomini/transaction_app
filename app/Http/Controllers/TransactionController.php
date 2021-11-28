@@ -47,7 +47,7 @@ class TransactionController extends Controller
         try {
             DB::beginTransaction();
 
-            $transaction = $this->transactionService->create(
+            $transaction = $this->transactionService->makeTransaction(
                 $request->get('payer_id'),
                 $request->get('payee_id'),
                 $request->get('value')

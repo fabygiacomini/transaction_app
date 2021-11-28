@@ -116,7 +116,7 @@ class TransactionServiceTest extends TestCase
             ->with($payer, $payee, $value)
             ->andReturn($transactionEntity);
 
-        $transaction = $this->transactionService->create(1, 2, $value);
+        $transaction = $this->transactionService->makeTransaction(1, 2, $value);
 
         $this->assertEquals($transaction, $transactionEntity);
     }
@@ -144,7 +144,7 @@ class TransactionServiceTest extends TestCase
         $this->processValidations->shouldReceive('validateTransaction')
             ->andReturn(false); // failed validation
 
-        $this->transactionService->create(1, 2, $value);
+        $this->transactionService->makeTransaction(1, 2, $value);
     }
 
     /**

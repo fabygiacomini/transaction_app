@@ -40,7 +40,7 @@ class TransactionFeatureTest extends TestCase
     public function testShouldReturnHttpStatus401()
     {
         $payload = [
-            'payer_id' => 2,
+            'payer_id' => 2, // shopkeeper
             'payee_id' => 1,
             'value' => 120.79
         ];
@@ -51,9 +51,25 @@ class TransactionFeatureTest extends TestCase
     }
 
     /**
+     * Test should failed on request validations, because 'player_id'
+     * don't exists on database.
+     */
+    public function testShouldFailedValidationPayerIdNotExists()
+    {
+        $payload = [
+            'payer_id' => 88,
+            'payee_id' => 1,
+            'value' => 120.79
+        ];
+
+        $response = $this->post('/api/transaction', $payload, ['X-Requested-With' => 'XMLHttpRequest']);
+        $response->assertSessionHasErrors(['payer_id']);
+    }
+
+    /**
      * Test listing the transactions created
      */
-    public function testListAllTransactions()
+    public function testShouldListAllTransactions()
     {
         Transaction::factory()->count(5)->create();
 

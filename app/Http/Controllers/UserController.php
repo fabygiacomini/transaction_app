@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\UserException;
 use App\Http\Requests\UserRequest;
+use App\Models\User;
 use App\Modules\User\Service\UserServiceInterface;
 use App\Modules\User\UserEntity;
 use Illuminate\Http\Response;
@@ -124,7 +125,7 @@ class UserController extends Controller
     {
         try {
             $this->userService->deleteUser($userId);
-            return response(['message' => 'Usuário removido com sucesso!'], Response::HTTP_CREATED);
+            return response(['message' => 'Usuário removido com sucesso!'], Response::HTTP_OK);
 
         } catch (UserException $userException) {
             return response(['message' => $userException->getMessage()], $userException->getCode());

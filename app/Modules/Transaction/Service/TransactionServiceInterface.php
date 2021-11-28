@@ -40,7 +40,7 @@ interface TransactionServiceInterface
      * @return TransactionEntity
      * @throws TransactionException
      */
-    public function create(int $payerId, int $payeeId, float $value): TransactionEntity;
+    public function makeTransaction(int $payerId, int $payeeId, float $value): TransactionEntity;
 
     /**
      * List all transactions.
