@@ -1,0 +1,428 @@
+{
+	"info": {
+		"_postman_id": "68c79520-bc58-4eaf-afb5-99f17f231a1c",
+		"name": "TransactionApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "List Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/api/user",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List Users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8000/api/user",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Nov 2021 16:47:53 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Nov 2021 16:47:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Fabiana G\",\n        \"email\": \"fabiana@email.com\",\n        \"cpf_cnpj\": 12345678900,\n        \"shopkeeper\": 0,\n        \"created_at\": \"2021-11-23T22:18:09.000000Z\",\n        \"updated_at\": \"2021-11-23T22:18:09.000000Z\",\n        \"wallet\": {\n            \"id\": 1,\n            \"user_id\": 1,\n            \"balance\": 5000,\n            \"created_at\": \"2021-11-23T22:18:09.000000Z\",\n            \"updated_at\": \"2021-11-23T22:18:09.000000Z\"\n        }\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Zelda TLZ\",\n        \"email\": \"zelda@email.com\",\n        \"cpf_cnpj\": 22222222222,\n        \"shopkeeper\": 1,\n        \"created_at\": \"2021-11-23T22:18:09.000000Z\",\n        \"updated_at\": \"2021-11-23T22:18:09.000000Z\",\n        \"wallet\": {\n            \"id\": 2,\n            \"user_id\": 2,\n            \"balance\": 1000,\n            \"created_at\": \"2021-11-23T22:18:09.000000Z\",\n            \"updated_at\": \"2021-11-23T22:18:09.000000Z\"\n        }\n    },\n    {\n        \"id\": 11,\n        \"name\": \"Fabiana Teste\",\n        \"email\": \"fabiana@email.com\",\n        \"cpf_cnpj\": 666666666,\n        \"shopkeeper\": 0,\n        \"created_at\": \"2021-11-27T16:26:35.000000Z\",\n        \"updated_at\": \"2021-11-27T16:26:35.000000Z\",\n        \"wallet\": {\n            \"id\": 3,\n            \"user_id\": 11,\n            \"balance\": 0,\n            \"created_at\": \"2021-11-27T16:26:35.000000Z\",\n            \"updated_at\": \"2021-11-27T16:26:35.000000Z\"\n        }\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Find User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/api/user/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Darwin",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "teste@ymail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "cpf_cnpj",
+									"value": "11111111111",
+									"type": "text"
+								},
+								{
+									"key": "shopkeeper",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{HOST}}/api/user",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Fabiana GG",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "fabiana@ymail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "cpf_cnpj",
+									"value": "666666666",
+									"type": "text"
+								},
+								{
+									"key": "shopkeeper",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{HOST}}/api/user",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/user/3",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "Make Transaction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "payer_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "payee_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "value",
+									"value": "335.98",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{HOST}}/api/transaction",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"transaction"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Transação",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "payer_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "payee_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "value",
+											"value": "120.80",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:8000/api/transaction",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"transaction"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Nov 2021 16:54:55 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 27 Nov 2021 16:54:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=UTF-8"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "Transação realizada com sucesso! ID: 1"
+						}
+					]
+				},
+				{
+					"name": "List Transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/api/transaction",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "localhost:8000"
+		}
+	]
+}

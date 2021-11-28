@@ -29,7 +29,9 @@ No desenvolvimento desta API, buscou-se, também, manter uma arquitetura/estrutu
 
 **Com Make:**<br>
 - Executar, na pasta do projeto, o comando  `make prepare-environment`.<br>
-Este comando já inicializará os containers da aplicação, instalará o que for necessário pelo composer, e prepará o banco de dados, executando as migrations e populando as tabelas users e wallets com alguns seeders para facilitar os testes.
+Este comando já inicializará os containers da aplicação, instalará o que for necessário pelo composer, e prepará o banco de dados, executando as migrations e populando as tabelas users e wallets com alguns seeders para facilitar os testes.<br>
+*Para outros atalhos de comandos, consultar os arquivo `Makefile`*<br>
+Após a primeira inicialização, podemos passar a subir o sistema usando o comando `make start` (não vai rodar os seeders mais, sobe os containers e atualiza as migrations). 
 <br>
 
 **Sem o Make:**<br>
@@ -48,7 +50,7 @@ No entanto, os usuários podem ser criados/gerenciados manualmente por meio de r
 ----
 
 ### Requests
-Para testarmos as rotas, podemos importar o exemplo de requisições (json presente na pasta `/requests-example`) para o Postman com o comando `command + O` ou `ctrl + O`, para facilitar.<br>
+Para testarmos as rotas, podemos importar o exemplo de requisições (json presente na pasta `/anexos/requests-example`) para o Postman com o comando `command + O` ou `ctrl + O`, para facilitar.<br>
 Para realizar requisições para a API, podemos seguir as instruções abaixo para cada uma das rotas:
 
 #### *Rotas de Transação*
@@ -113,6 +115,20 @@ Payload (x-www-form-urlencoded)
 Remove o usuário do banco de dados.<br>
 <br>
 
-----
 
 **PS:** Foi adicionado o header 'X-Requested-With': 'XMLHttpRequest' nas requisições para que fosse possível visualizar as mensagens de erro pelo Postman, visto que o Laravel, em caso de erro, estava apenas redirecionando para a view do index, sem mostrar a resposta e o status code. 
+
+----
+
+### Notificação
+Caso a transação ocorra com sucesso, uma notificação será enviada ao usuário beneficiário.<br>
+A forma de notificação foi implementada de duas formas:
+- requisitando para uma url de Mock, cujo retorno é um json com "message":"success" (para isso, podemos descomentar a chamada que faz essa solicitação dentro de `TransactionService.notifyTransactionPayee()`);
+- ou, enviando um e-mail real para o endereço de cadastro do usuário, enviando alguns dados para informar o usuário.
+Esta segunda opção requer que se configure um e-mail no arquivo `.env` que servirá para disparar os e-mails do sistema aos usuários (no arquivo `.env.example` foi adicionada uma sugestão de configurações de cadastro para contas do GMail).
+<br>
+
+**Exemplo**<br>
+Após uma transação realizada com sucesso, o usuário que recebeu a transferência recberá um e-mail como este:
+
+![image](./anexos/email-example.png)

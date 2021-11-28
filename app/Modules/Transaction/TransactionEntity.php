@@ -30,6 +30,11 @@ class TransactionEntity implements EntityInterface
     private $value;
 
     /**
+     * @var string
+     */
+    private $dateTime;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -93,6 +98,22 @@ class TransactionEntity implements EntityInterface
         $this->value = $value;
     }
 
+    /**
+     * @return string
+     */
+    public function getDateTime(): string
+    {
+        return $this->dateTime;
+    }
+
+    /**
+     * @param string $dateTime
+     */
+    public function setDateTime(string $dateTime): void
+    {
+        $this->dateTime = $dateTime;
+    }
+
 
     /**
      * Generate a TransactionEntity from a Transaction (model).
@@ -106,6 +127,7 @@ class TransactionEntity implements EntityInterface
         $transaction->setPayerId($transactionModel->payer_id);
         $transaction->setPayeeId($transactionModel->payee_id);
         $transaction->setValue($transactionModel->value);
+        $transaction->setDateTime(date('d/m/Y H:i:s', strtotime($transactionModel->created_at)));
 
         return $transaction;
     }

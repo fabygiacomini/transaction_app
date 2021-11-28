@@ -5,6 +5,7 @@ namespace App\Modules\Transaction\Service;
 
 
 use App\Exceptions\TransactionException;
+use App\Mail\NotifyReceiptMail;
 use App\Modules\Transaction\Repository\TransactionRepositoryInterface;
 use App\Modules\Transaction\TransactionEntity;
 use App\Modules\Transaction\Validation\ProcessValidationsInterface;
@@ -13,6 +14,7 @@ use App\Modules\User\Service\UserServiceInterface;
 use App\Modules\Wallet\Service\WalletServiceInterface;
 use App\Send\SendNotification;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Mail;
 
 class TransactionService implements TransactionServiceInterface
 {
@@ -101,14 +103,19 @@ class TransactionService implements TransactionServiceInterface
     public function notifyTransactionPayee(TransactionEntity $transactionEntity): bool
     {
         $payee = $this->userService->getUserAndWallet($transactionEntity->getPayeeId());
+        $payer = $this->userService->getUserAndWallet($transactionEntity->getPayerId());
 
         if (!$payee) {
             throw new \Exception('Usuário não encontrado!', Response::HTTP_NOT_FOUND);
         }
 
         try {
-            return SendNotification::notificate($payee);
+            // Mock the notification send
+//            return SendNotification::notificate($payee);
 
+            // Send an e-mail to payee user
+            Mail::to($payee->getEmail())->send(new NotifyReceiptMail($payee, $payer, $transactionEntity));
+            return true;
         } catch (\Exception $exception) {
             throw $exception;
         }
