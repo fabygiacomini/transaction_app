@@ -132,3 +132,11 @@ Esta segunda opção requer que se configure um e-mail no arquivo `.env` que ser
 Após uma transação realizada com sucesso, o usuário que recebeu a transferência recberá um e-mail como este:
 
 ![image](./anexos/email-example.png)
+
+----
+
+### Feature e Unit Tests
+Foram implementados alguns testes de integração para o fluxo de Transaction e User, e unitários para o serviço de Transaction.<br>
+Para rodar os testes, basta utilizar o comando `make test` se utilizar o Make, ou, direto pelo container, com o comando `docker exec transaction-app php artisan test`.<br>
+
+----
