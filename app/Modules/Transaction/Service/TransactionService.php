@@ -72,17 +72,16 @@ class TransactionService implements TransactionServiceInterface
      */
     public function create(int $payerId, int $payeeId, float $value): TransactionEntity
     {
-        // Find the payer/payee users and their wallets
-        $userPayer = $this->userService->getUserAndWallet($payerId);
-        $userPayee = $this->userService->getUserAndWallet($payeeId);
-
-        // Process all the validations required for payer user
-        $transactionPermitted = $this->processValidations->validateTransaction($userPayer, $userPayee, $value, $this->authorizerService);
-        if (!$transactionPermitted) {
-            throw new TransactionException('A transferência não foi autorizada para este pagador. Cheque as informações e tente novamente.', Response::HTTP_UNAUTHORIZED);
-        }
-
         try {
+            // Find the payer/payee users and their wallets
+            $userPayer = $this->userService->getUserAndWallet($payerId);
+            $userPayee = $this->userService->getUserAndWallet($payeeId);
+
+            // Process all the validations required for payer user
+            $transactionPermitted = $this->processValidations->validateTransaction($userPayer, $userPayee, $value, $this->authorizerService);
+            if (!$transactionPermitted) {
+                throw new TransactionException('A transferência não foi autorizada para este pagador. Cheque as informações e tente novamente.', Response::HTTP_UNAUTHORIZED);
+            }
 
             $this->walletService->withdraw($userPayer, $value);
             $this->walletService->deposit($userPayee, $value);
@@ -91,8 +90,7 @@ class TransactionService implements TransactionServiceInterface
 
         } catch (TransactionException $transactionException) {
             throw $transactionException;
-        } catch (\Exception $exception) {
-
+        } catch (\Exception | \TypeError $exception) {
             throw new TransactionException('Ocorreu um erro ao realizar a transferência.', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -103,11 +101,12 @@ class TransactionService implements TransactionServiceInterface
     public function notifyTransactionPayee(TransactionEntity $transactionEntity): bool
     {
         $payee = $this->userService->getUserAndWallet($transactionEntity->getPayeeId());
-        $payer = $this->userService->getUserAndWallet($transactionEntity->getPayerId());
 
         if (!$payee) {
             throw new \Exception('Usuário não encontrado!', Response::HTTP_NOT_FOUND);
         }
+
+        $payer = $this->userService->getUserAndWallet($transactionEntity->getPayerId());
 
         try {
             // Mock the notification send

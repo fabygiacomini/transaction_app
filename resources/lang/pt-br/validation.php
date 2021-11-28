@@ -9,4 +9,5 @@ return [
     'email' => 'O e-mail não possui formato válido.',
     'boolean' => 'O campo :attribute não está no formato correto.',
     'unique' => 'Uma conta com este :attribute já foi criada. Por favor selecione outro para continuar.',
+    'exists' => 'O campo :attribute informado é inválido.',
 ];

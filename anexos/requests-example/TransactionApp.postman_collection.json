@@ -12,7 +12,13 @@
 					"name": "List Users",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{HOST}}/api/user",
 							"host": [
@@ -88,7 +94,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Fabiana G\",\n        \"email\": \"fabiana@email.com\",\n        \"cpf_cnpj\": 12345678900,\n        \"shopkeeper\": 0,\n        \"created_at\": \"2021-11-23T22:18:09.000000Z\",\n        \"updated_at\": \"2021-11-23T22:18:09.000000Z\",\n        \"wallet\": {\n            \"id\": 1,\n            \"user_id\": 1,\n            \"balance\": 5000,\n            \"created_at\": \"2021-11-23T22:18:09.000000Z\",\n            \"updated_at\": \"2021-11-23T22:18:09.000000Z\"\n        }\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Zelda TLZ\",\n        \"email\": \"zelda@email.com\",\n        \"cpf_cnpj\": 22222222222,\n        \"shopkeeper\": 1,\n        \"created_at\": \"2021-11-23T22:18:09.000000Z\",\n        \"updated_at\": \"2021-11-23T22:18:09.000000Z\",\n        \"wallet\": {\n            \"id\": 2,\n            \"user_id\": 2,\n            \"balance\": 1000,\n            \"created_at\": \"2021-11-23T22:18:09.000000Z\",\n            \"updated_at\": \"2021-11-23T22:18:09.000000Z\"\n        }\n    },\n    {\n        \"id\": 11,\n        \"name\": \"Fabiana Teste\",\n        \"email\": \"fabiana@email.com\",\n        \"cpf_cnpj\": 666666666,\n        \"shopkeeper\": 0,\n        \"created_at\": \"2021-11-27T16:26:35.000000Z\",\n        \"updated_at\": \"2021-11-27T16:26:35.000000Z\",\n        \"wallet\": {\n            \"id\": 3,\n            \"user_id\": 11,\n            \"balance\": 0,\n            \"created_at\": \"2021-11-27T16:26:35.000000Z\",\n            \"updated_at\": \"2021-11-27T16:26:35.000000Z\"\n        }\n    }\n]"
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Fabiana G\",\n        \"email\": \"fabiana@email.com\",\n        \"cpf_cnpj\": 12345678900,\n        \"shopkeeper\": 0,\n        \"created_at\": \"2021-11-23T22:18:09.000000Z\",\n        \"updated_at\": \"2021-11-23T22:18:09.000000Z\",\n        \"wallet\": {\n            \"id\": 1,\n            \"user_id\": 1,\n            \"balance\": 5000,\n            \"created_at\": \"2021-11-23T22:18:09.000000Z\",\n            \"updated_at\": \"2021-11-23T22:18:09.000000Z\"\n        }\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Zelda TLZ\",\n        \"email\": \"zelda@email.com\",\n        \"cpf_cnpj\": 22222222222,\n        \"shopkeeper\": 1,\n        \"created_at\": \"2021-11-23T22:18:09.000000Z\",\n        \"updated_at\": \"2021-11-23T22:18:09.000000Z\",\n        \"wallet\": {\n            \"id\": 2,\n            \"user_id\": 2,\n            \"balance\": 1000,\n            \"created_at\": \"2021-11-23T22:18:09.000000Z\",\n            \"updated_at\": \"2021-11-23T22:18:09.000000Z\"\n        }\n    },\n    {\n        \"id\": 11,\n        \"name\": \"Fabiana Teste\",\n        \"email\": \"fabiana@ymail.com\",\n        \"cpf_cnpj\": 666666666,\n        \"shopkeeper\": 0,\n        \"created_at\": \"2021-11-27T16:26:35.000000Z\",\n        \"updated_at\": \"2021-11-27T16:26:35.000000Z\",\n        \"wallet\": {\n            \"id\": 3,\n            \"user_id\": 11,\n            \"balance\": 0,\n            \"created_at\": \"2021-11-27T16:26:35.000000Z\",\n            \"updated_at\": \"2021-11-27T16:26:35.000000Z\"\n        }\n    }\n]"
 						}
 					]
 				},
@@ -96,7 +102,13 @@
 					"name": "Find User",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{HOST}}/api/user/1",
 							"host": [
@@ -132,7 +144,7 @@
 								},
 								{
 									"key": "email",
-									"value": "teste@ymail.com",
+									"value": "fabiana@email.com",
 									"type": "text"
 								},
 								{
@@ -191,7 +203,7 @@
 								},
 								{
 									"key": "email",
-									"value": "fabiana@ymail.com",
+									"value": "fgg@email.com",
 									"type": "text"
 								},
 								{
@@ -258,7 +270,13 @@
 					"name": "Make Transaction",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
@@ -269,7 +287,7 @@
 								},
 								{
 									"key": "payee_id",
-									"value": "3",
+									"value": "2",
 									"type": "text"
 								},
 								{
@@ -292,10 +310,16 @@
 					},
 					"response": [
 						{
-							"name": "Transação",
+							"name": "Make Transaction",
 							"originalRequest": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "X-Requested-With",
+										"value": "XMLHttpRequest",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "formdata",
 									"formdata": [
@@ -311,17 +335,16 @@
 										},
 										{
 											"key": "value",
-											"value": "120.80",
+											"value": "335.98",
 											"type": "text"
 										}
 									]
 								},
 								"url": {
-									"raw": "localhost:8000/api/transaction",
+									"raw": "{{HOST}}/api/transaction",
 									"host": [
-										"localhost"
+										"{{HOST}}"
 									],
-									"port": "8000",
 									"path": [
 										"api",
 										"transaction"
@@ -330,35 +353,35 @@
 							},
 							"status": "Created",
 							"code": 201,
-							"_postman_previewlanguage": "html",
+							"_postman_previewlanguage": "json",
 							"header": [
 								{
-									"key": "Host",
-									"value": "localhost:8000"
+									"key": "Server",
+									"value": "nginx/1.21.3"
 								},
 								{
-									"key": "Date",
-									"value": "Sat, 27 Nov 2021 16:54:55 GMT"
+									"key": "Content-Type",
+									"value": "application/json"
 								},
 								{
-									"key": "Date",
-									"value": "Sat, 27 Nov 2021 16:54:55 GMT"
+									"key": "Transfer-Encoding",
+									"value": "chunked"
 								},
 								{
 									"key": "Connection",
-									"value": "close"
+									"value": "keep-alive"
 								},
 								{
 									"key": "X-Powered-By",
-									"value": "PHP/7.3.11"
+									"value": "PHP/7.3.0"
 								},
 								{
 									"key": "Cache-Control",
 									"value": "no-cache, private"
 								},
 								{
-									"key": "Content-Type",
-									"value": "text/html; charset=UTF-8"
+									"key": "Date",
+									"value": "Sun, 28 Nov 2021 19:15:41 GMT"
 								},
 								{
 									"key": "X-RateLimit-Limit",
@@ -366,7 +389,7 @@
 								},
 								{
 									"key": "X-RateLimit-Remaining",
-									"value": "58"
+									"value": "59"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
@@ -374,7 +397,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "Transação realizada com sucesso! ID: 1"
+							"body": "{\n    \"message\": \"Transação realizada com sucesso! ID: 167. Notificação da transação enviada ao beneficiário.\"\n}"
 						}
 					]
 				},
@@ -382,7 +405,13 @@
 					"name": "List Transactions",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{HOST}}/api/transaction",
 							"host": [

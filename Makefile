@@ -29,3 +29,6 @@ reset-database:
 
 docker-down:
 	docker-compose down
+
+test:
+	docker exec $(CONTAINER) php artisan test
