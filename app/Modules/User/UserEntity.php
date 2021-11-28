@@ -159,7 +159,7 @@ class UserEntity implements EntityInterface
 
     /**
      * @param User $userModel
-     * @return EntityInterface
+     * @return UserEntity|null
      */
     public static function newEntityFromModel($userModel): ?UserEntity
     {

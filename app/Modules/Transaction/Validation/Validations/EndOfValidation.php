@@ -6,7 +6,7 @@ namespace App\Modules\Transaction\Validation\Validations;
 
 use App\Modules\User\UserEntity;
 
-class EndOfValidation implements ValidationInterface
+class EndOfValidation extends AbstractValidation implements ValidationInterface
 {
     // Chain's end
     /**
@@ -14,7 +14,7 @@ class EndOfValidation implements ValidationInterface
      */
     public function validate(UserEntity $payer, UserEntity $payee, float $transactionValue): bool
     {
-        // if the validation check this point, it's becouse none of the
+        // if the validation check this point, it's because none of the
         // validations failed; which means that the transaction can be made
         return true;
     }

@@ -114,7 +114,6 @@ class TransactionEntity implements EntityInterface
         $this->dateTime = $dateTime;
     }
 
-
     /**
      * Generate a TransactionEntity from a Transaction (model).
      * @param Transaction $transactionModel

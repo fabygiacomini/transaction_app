@@ -11,6 +11,7 @@ interface WalletRepositoryInterface
     /**
      * Update user's wallet balance.
      * @param UserEntity $user
+     * @return bool
      */
     public function updateUserBalance(UserEntity $user): bool;
 
@@ -23,7 +24,7 @@ interface WalletRepositoryInterface
     /**
      * Get data of an user's wallet.
      * @param UserEntity $userEntity
-     * @return int
+     * @return int|null
      */
     public function getWallet(UserEntity $userEntity): ?int;
 }

@@ -6,13 +6,8 @@ namespace App\Modules\Transaction\Validation\Validations;
 
 use App\Modules\User\UserEntity;
 
-class UserIntegrityValidation implements ValidationInterface
+class UserIntegrityValidation extends AbstractValidation implements ValidationInterface
 {
-    /**
-     * @var ValidationInterface
-     */
-    private $nextValidation;
-
     /**
      * @inheritDoc
      */
@@ -23,13 +18,5 @@ class UserIntegrityValidation implements ValidationInterface
         } else {
             return $this->nextValidation->validate($payer, $payee, $transactionValue);
         }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setNext(ValidationInterface $nextValidation): void
-    {
-        $this->nextValidation = $nextValidation;
     }
 }
