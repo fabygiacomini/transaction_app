@@ -7,7 +7,6 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Response;
-use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
 class UserFeatureTest extends TestCase
@@ -76,7 +75,6 @@ class UserFeatureTest extends TestCase
             ->assertJsonFragment([ // same register in UserSeeder
                 'cpf_cnpj' => 12345678900,
                 'email' => 'fabiana@email.com',
-                'id' => 1,
                 'name' => 'Fabiana G',
                 'shopkeeper' => 0
             ]);

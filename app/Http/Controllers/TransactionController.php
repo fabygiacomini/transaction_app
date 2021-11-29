@@ -8,7 +8,7 @@ use App\Modules\Transaction\Service\TransactionServiceInterface;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
-class TransactionController extends Controller
+class TransactionController extends Controller implements TransactionControllerInterface
 {
 
     /**

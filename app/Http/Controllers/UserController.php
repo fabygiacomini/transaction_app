@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\UserException;
 use App\Http\Requests\UserRequest;
-use App\Models\User;
 use App\Modules\User\Service\UserServiceInterface;
 use App\Modules\User\UserEntity;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
-class UserController extends Controller
+class UserController extends Controller implements UserControllerInterface
 {
     /**
      * @var UserServiceInterface

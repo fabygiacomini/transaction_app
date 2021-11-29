@@ -139,4 +139,6 @@ Após uma transação realizada com sucesso, o usuário que recebeu a transferê
 Foram implementados alguns testes de integração para o fluxo de Transaction e User, e unitários para o serviço de Transaction.<br>
 Para rodar os testes, basta utilizar o comando `make test` se utilizar o Make, ou, direto pelo container, com o comando `docker exec transaction-app php artisan test`.<br>
 
+Obs.: Antes de rodar os testes, é interessante dar um "fresh" no banco de dados, para isso, podemos executar o comando `make fresh`, ou `php artisan migrate:fresh --seed` (para termos os dados esperados pelas verificações de conteúdo de alguns testes).<br>
+
 ----

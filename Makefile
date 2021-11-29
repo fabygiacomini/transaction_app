@@ -30,5 +30,8 @@ reset-database:
 docker-down:
 	docker-compose down
 
+fresh:
+	docker exec $(CONTAINER) php artisan migrate:fresh --seed
+
 test:
 	docker exec $(CONTAINER) php artisan test

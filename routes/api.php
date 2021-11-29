@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\UserController;
-use \App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserControllerInterface;
+use \App\Http\Controllers\TransactionControllerInterface;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +17,12 @@ use \App\Http\Controllers\TransactionController;
 */
 
 /* User Routes */
-Route::get('/user/', [UserController::class, 'index']);
-Route::get('/user/{id}', [UserController::class, 'show']);
-Route::post('/user', [UserController::class, 'store']);
-Route::put('/user', [UserController::class, 'update']);
-Route::delete('/user/{id}', [UserController::class, 'destroy']);
+Route::get('/user/', [UserControllerInterface::class, 'index']);
+Route::get('/user/{id}', [UserControllerInterface::class, 'show']);
+Route::post('/user', [UserControllerInterface::class, 'store']);
+Route::put('/user', [UserControllerInterface::class, 'update']);
+Route::delete('/user/{id}', [UserControllerInterface::class, 'destroy']);
 
 /* Transaction Routes */
-Route::get('/transaction', [TransactionController::class, 'index']); // Teste
-Route::post('/transaction', [TransactionController::class, 'store']);
+Route::get('/transaction', [TransactionControllerInterface::class, 'index']);
+Route::post('/transaction', [TransactionControllerInterface::class, 'store']);

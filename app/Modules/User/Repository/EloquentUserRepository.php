@@ -95,6 +95,13 @@ class EloquentUserRepository implements UserRepositoryInterface
             return false;
         }
 
+        $wallet = $user->wallet;
+        // if a wallet exists for this user, remove the wallet so
+        // we can remove the user (foreign key in use)
+        if ($wallet) {
+            $wallet->delete();
+        }
+
         $user->delete();
 
         return true;
